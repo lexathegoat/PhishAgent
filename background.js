@@ -28,7 +28,6 @@ class PhishingDetector {
       const path = urlObj.pathname;
       
       const features = {
-        // URL-based features
         urlLength: url.length,
         domainLength: domain.length,
         pathLength: path.length,
@@ -39,7 +38,6 @@ class PhishingDetector {
         hasSuspiciousKeywords: this.hasSuspiciousKeywords(url),
         hasHomographAttack: this.detectHomographs(domain),
         
-        // Content-based features
         hasLoginForm: false,
         hasPasswordField: false,
         externalLinksCount: 0,
@@ -47,13 +45,11 @@ class PhishingDetector {
         hasHiddenIframes: false,
         formActionExternal: false,
         
-        // Domain reputation
         isKnownLegit: this.isKnownLegitimate(domain),
         domainAge: null,
         sslCertValid: urlObj.protocol === 'https:'
       };
       
-      // Content analysis
       if (pageContent) {
         features.hasLoginForm = /<form[^>]*>/i.test(pageContent);
         features.hasPasswordField = /<input[^>]*type=["']?password["']?/i.test(pageContent);
@@ -210,4 +206,5 @@ class PhishingDetector {
       });
       return true;
     }
+
   });
